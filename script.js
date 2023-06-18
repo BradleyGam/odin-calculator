@@ -1,9 +1,9 @@
-const calculatorDisplay = document.querySelector(".display");
-const hoverDisplay = document.querySelector(".hover-display");
+const firstNumber = document.querySelector(".first-number");
+const secondNumber = document.querySelector(".second-number");
+const operationText = document.querySelector(".operator");
 const numberButtons = document.querySelectorAll(".number-buttons button");
 const operationButtons = document.querySelectorAll(".operation-buttons button");
 const equalButton = document.querySelector("#equal");
-const operationPrefix = document.querySelector(".prefix");
 let operator;
 
 
@@ -16,10 +16,10 @@ numberButtons.forEach((button, index) => {
 });
 
 function updateDisplay(input) {
-    if (calculatorDisplay.textContent === "0") {
-        calculatorDisplay.textContent = input;
+    if (firstNumber.textContent === "0") {
+        firstNumber.textContent = input;
     } else {
-        calculatorDisplay.textContent += input;
+        firstNumber.textContent += input;
     }
 }
 
@@ -27,9 +27,10 @@ operationButtons.forEach(button => button.addEventListener("click", moveOperand)
 equalButton.addEventListener("click", () => performOperation(operator));
 
 function moveOperand() {
-    hoverDisplay.textContent = calculatorDisplay.textContent;
-    calculatorDisplay.textContent = "0";
+    secondNumber.textContent = firstNumber.textContent;
+    firstNumber.textContent = "0";
     operator = this.id;
+    operationText.textContent = this.textContent;
 }
 
 const operationMap = {
@@ -37,12 +38,16 @@ const operationMap = {
     subtract: (a, b) => a - b,
     multiply: (a, b) => a * b,
     divide: (a, b) => a / b,
+
 }
 
 function performOperation(operator) {
-    const firstNumber = parseFloat(hoverDisplay.textContent);
-    const secondNumber = parseFloat(calculatorDisplay.textContent);
-    const result = operationMap[operator](firstNumber, secondNumber);
-    calculatorDisplay.textContent = result.toString();
-    hoverDisplay.textContent = "-";
+    const a = parseFloat(firstNumber.textContent);
+    const b = parseFloat(secondNumber.textContent);
+    const result = operationMap[operator](a, b);
+    firstNumber.textContent = result.toString();
+    secondNumber.textContent = "-";
 }
+
+
+
