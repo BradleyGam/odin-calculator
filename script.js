@@ -1,5 +1,10 @@
 const calculatorDisplay = document.querySelector(".display");
+const hoverDisplay = document.querySelector(".hover-display");
 const numberButtons = document.querySelectorAll(".number-buttons button");
+const operationButtons = document.querySelectorAll(".operation-buttons button");
+let operator;
+
+
 
 numberButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
@@ -16,27 +21,33 @@ function updateDisplay(number) {
     }
 }
 
+operationButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        hoverDisplay.textContent = calculatorDisplay.textContent
+        calculatorDisplay.textContent = "0";
+        operator = button.id;
+    })
+})
 
 
-// Basic arithmetic operations
-function add (a, b) {
-    return a + b;
+
+
+const operationMap = {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b,
+    multiply: (a, b) => a * b,
+    divide: (a, b) => a / b,
 }
 
-function subtract(a, b) {
-    return a - b;
-}
 
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    return a / b;
-}
-
-
-// Perform the specified operation on two numbers
 function operate(operator, a, b) {
     return operator(a, b);
+}
+
+function performOperation(operator) {
+    const firstNumber = parseFloat(hoverDisplay.textContent);
+    const secondNumber = parseFloat(calculatorDisplay.textContent);
+    const result = operate(operatorMap[operator], firstNumber, secondNumber);
+    calculatorDisplay.textContent = result.toString();
+    hoverDisplay.textContent = "";
 }
