@@ -1,3 +1,17 @@
+const display = document.querySelector(".display");
+const numbers = document.querySelectorAll(".numbers button");
+
+for (let i = 0; i <= 9; i++) {
+    numbers[i].addEventListener("click", () => {
+        if (display.textContent == "0") {
+            display.textContent = `${i}`
+        } else {
+            display.textContent = display.textContent + `${i}`;
+        }
+    });
+}
+
+
 let firstNumber = 0;
 let secondNumber = 0;
 
