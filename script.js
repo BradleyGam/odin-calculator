@@ -1,20 +1,24 @@
-const display = document.querySelector(".display");
-const numbers = document.querySelectorAll(".numbers button");
+const calculatorDisplay = document.querySelector(".display");
+const numberButtons = document.querySelectorAll(".number-buttons button");
 
-for (let i = 0; i <= 9; i++) {
-    numbers[i].addEventListener("click", () => {
-        if (display.textContent == "0") {
-            display.textContent = `${i}`
-        } else {
-            display.textContent = display.textContent + `${i}`;
-        }
+numberButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+        const number = index.toString();
+        updateDisplay(number);
     });
+});
+
+function updateDisplay(number) {
+    if (calculatorDisplay.textContent === "0") {
+        calculatorDisplay.textContent = number;
+    } else {
+        calculatorDisplay.textContent += number;
+    }
 }
 
 
-let firstNumber = 0;
-let secondNumber = 0;
 
+// Basic arithmetic operations
 function add (a, b) {
     return a + b;
 }
@@ -31,6 +35,8 @@ function divide(a, b) {
     return a / b;
 }
 
+
+// Perform the specified operation on two numbers
 function operate(operator, a, b) {
     return operator(a, b);
 }
