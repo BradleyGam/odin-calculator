@@ -2,6 +2,7 @@ const calculatorDisplay = document.querySelector(".display");
 const hoverDisplay = document.querySelector(".hover-display");
 const numberButtons = document.querySelectorAll(".number-buttons button");
 const operationButtons = document.querySelectorAll(".operation-buttons button");
+const equalButton = document.querySelector("#equal");
 let operator;
 
 
@@ -29,7 +30,9 @@ operationButtons.forEach(button => {
     })
 })
 
-
+equalButton.addEventListener("click", () => {
+    performOperation(operator);
+})
 
 
 const operationMap = {
@@ -39,15 +42,10 @@ const operationMap = {
     divide: (a, b) => a / b,
 }
 
-
-function operate(operator, a, b) {
-    return operator(a, b);
-}
-
 function performOperation(operator) {
     const firstNumber = parseFloat(hoverDisplay.textContent);
     const secondNumber = parseFloat(calculatorDisplay.textContent);
-    const result = operate(operatorMap[operator], firstNumber, secondNumber);
+    const result = operationMap[operator](firstNumber, secondNumber);
     calculatorDisplay.textContent = result.toString();
     hoverDisplay.textContent = "";
 }
