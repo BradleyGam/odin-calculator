@@ -1,13 +1,16 @@
+/* Initialize variables that store reference to elements in index.html */
 const firstNumber = document.querySelector(".first-number");
 const secondNumber = document.querySelector(".second-number");
 const operationText = document.querySelector(".operator");
 const numberButtons = document.querySelectorAll(".number-buttons button");
 const operationButtons = document.querySelectorAll(".operation-buttons button");
 const equalButton = document.querySelector("#equal");
+
 let operator = undefined;
 
 
 
+/* Add event listeners to each button */
 numberButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
         const number = index.toString();
@@ -15,24 +18,30 @@ numberButtons.forEach((button, index) => {
     });
 });
 
-function updateDisplay(input) {
+operationButtons.forEach(button => button.addEventListener("click", setOperation));
+equalButton.addEventListener("click", () => performOperation(operator));
+
+
+
+/* Functions for updating UI and performing calculation */
+function updateDisplay(number) {
     if (operator === undefined) {
+        // If no operator is set, update the first number in the display
         if (firstNumber.textContent === "0") {
-            firstNumber.textContent = input;
+            firstNumber.textContent = number;
         } else {
-            firstNumber.textContent += input;
+            firstNumber.textContent += number;
         }
     } else {
+        // If an operator is set, update the second number in the display
         if (secondNumber.textContent === "0") {
-            secondNumber.textContent = input;
+            secondNumber.textContent = number;
         } else {
-            secondNumber.textContent += input;
+            secondNumber.textContent += number;
         }
     }
 }
 
-operationButtons.forEach(button => button.addEventListener("click", setOperation));
-equalButton.addEventListener("click", () => performOperation(operator));
 
 function setOperation() {
     if (secondNumber.textContent !== "") {
@@ -42,13 +51,6 @@ function setOperation() {
     operator = this.id;
 }
 
-const operationMap = {
-    add: (a, b) => a + b,
-    subtract: (a, b) => a - b,
-    multiply: (a, b) => a * b,
-    divide: (a, b) => a / b,
-
-}
 
 function performOperation(operator) {
     if (operator === undefined) {
@@ -67,9 +69,18 @@ function performOperation(operator) {
     resetUI();
 }
 
+
 function resetUI() {
     operator = undefined;
     secondNumber.textContent = "";
     operationText.textContent = "";
 }
 
+
+/* Object containing all operation functions */
+const operationMap = {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b,
+    multiply: (a, b) => a * b,
+    divide: (a, b) => a / b,
+}
