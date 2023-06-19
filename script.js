@@ -16,21 +16,27 @@ numberButtons.forEach((button, index) => {
 });
 
 function updateDisplay(input) {
-    if (firstNumber.textContent === "0") {
-        firstNumber.textContent = input;
+    if (operator === undefined) {
+        if (firstNumber.textContent === "0") {
+            firstNumber.textContent = input;
+        } else {
+            firstNumber.textContent += input;
+        }
     } else {
-        firstNumber.textContent += input;
+        if (secondNumber.textContent === "0") {
+            secondNumber.textContent = input;
+        } else {
+            secondNumber.textContent += input;
+        }
     }
 }
 
-operationButtons.forEach(button => button.addEventListener("click", moveOperand));
+operationButtons.forEach(button => button.addEventListener("click", setOperation));
 equalButton.addEventListener("click", () => performOperation(operator));
 
-function moveOperand() {
-    secondNumber.textContent = firstNumber.textContent;
-    firstNumber.textContent = "0";
-    operator = this.id;
+function setOperation() {
     operationText.textContent = this.textContent;
+    operator = this.id;
 }
 
 const operationMap = {
@@ -46,8 +52,12 @@ function performOperation(operator) {
     const b = parseFloat(secondNumber.textContent);
     const result = operationMap[operator](a, b);
     firstNumber.textContent = result.toString();
-    secondNumber.textContent = "-";
+    resetUI();
 }
 
-
+function resetUI() {
+    secondNumber.textContent = "";
+    operator = undefined;
+    operationText.textContent = "";
+}
 
