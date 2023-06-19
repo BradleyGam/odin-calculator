@@ -2,7 +2,7 @@
 const firstNumber = document.querySelector(".first-number");
 const secondNumber = document.querySelector(".second-number");
 const operationText = document.querySelector(".operator");
-const numberButtons = document.querySelectorAll(".number-buttons button");
+const numericButtons = document.querySelectorAll(".number-buttons button");
 const operationButtons = document.querySelectorAll(".operation-buttons button");
 const equalButton = document.querySelector("#equal");
 
@@ -11,7 +11,7 @@ let operator = undefined;
 
 
 /* Add event listeners to each button */
-numberButtons.forEach((button, index) => {
+numericButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
         const number = index.toString();
         updateDisplay(number);
@@ -83,4 +83,6 @@ const operationMap = {
     subtract: (a, b) => a - b,
     multiply: (a, b) => a * b,
     divide: (a, b) => a / b,
+    remainder: (a, b) => a % b,
+    power: (a, b) => a ** b,
 }
