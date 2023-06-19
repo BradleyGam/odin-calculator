@@ -4,7 +4,7 @@ const operationText = document.querySelector(".operator");
 const numberButtons = document.querySelectorAll(".number-buttons button");
 const operationButtons = document.querySelectorAll(".operation-buttons button");
 const equalButton = document.querySelector("#equal");
-let operator;
+let operator = undefined;
 
 
 
@@ -35,6 +35,9 @@ operationButtons.forEach(button => button.addEventListener("click", setOperation
 equalButton.addEventListener("click", () => performOperation(operator));
 
 function setOperation() {
+    if (secondNumber.textContent !== "") {
+        performOperation(operator);
+    }
     operationText.textContent = this.textContent;
     operator = this.id;
 }
@@ -48,16 +51,25 @@ const operationMap = {
 }
 
 function performOperation(operator) {
-    const a = parseFloat(firstNumber.textContent);
-    const b = parseFloat(secondNumber.textContent);
+    if (operator === undefined) {
+        operator = "add";
+    }
+    let a = parseFloat(firstNumber.textContent);
+    if (isNaN(a)) {
+        a = 0;
+    }
+    let b = parseFloat(secondNumber.textContent);
+    if (isNaN(b)) {
+        b = 0;
+    }
     const result = operationMap[operator](a, b);
     firstNumber.textContent = result.toString();
     resetUI();
 }
 
 function resetUI() {
-    secondNumber.textContent = "";
     operator = undefined;
+    secondNumber.textContent = "";
     operationText.textContent = "";
 }
 
