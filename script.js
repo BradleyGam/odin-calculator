@@ -50,6 +50,14 @@ deleteButton.addEventListener("click", () => {
     }
 });
 
+inverseButton.addEventListener("click", () => {
+    if (isFirstFocus) {  
+        firstNumber.textContent = firstNumber.textContent * -1;
+    } else {
+        secondNumber.textContent = secondNumber.textContent * -1;
+    }
+});
+
 
 /* Functions for updating UI and performing calculation */
 function updateDisplay(number) {
