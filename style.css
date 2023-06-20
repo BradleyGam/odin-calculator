@@ -1,12 +1,34 @@
+:root {
+    --background: #80ceac;
+    --calculator: #fee196;
+    --screen-border: #3b3240;
+    --screen: #8eac8f;
+    --button: #3b3240;
+    --button-alt: #ff6a46;
+}
+
 /* CSS Reset and Box Sizing */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+    background-color: var(--background);
+    min-height: 100%;
 }
 
 .calculator {
+    max-width: 800px;
+    height: auto;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+    background-color: var(--calculator);
+  }
