@@ -50,6 +50,7 @@ deleteButton.addEventListener("click", () => {
     }
 });
 
+
 inverseButton.addEventListener("click", () => {
     if (isFirstFocus) {  
         firstNumber.textContent = firstNumber.textContent * -1;
@@ -57,6 +58,28 @@ inverseButton.addEventListener("click", () => {
         secondNumber.textContent = secondNumber.textContent * -1;
     }
 });
+
+
+decimalButton.addEventListener("click", () => {
+    if (isFirstFocus) {
+        if (firstNumber.textContent.indexOf(".") === firstNumber.textContent.length - 1) {
+            firstNumber.textContent = firstNumber.textContent.slice(0, -1);
+            return;
+        } else if (firstNumber.textContent.includes(".")) {
+            return;
+        }
+        firstNumber.textContent += ".";
+    } else {
+        if (secondNumber.textContent.indexOf(".") === secondNumber.textContent.length - 1) {
+            secondNumber.textContent = secondNumber.textContent.slice(0, -1);
+            return;
+        } else if (secondNumber.textContent.includes(".")) {
+            return;
+        }
+        secondNumber.textContent += ".";
+    }
+});
+
 
 
 /* Functions for updating UI and performing calculation */
