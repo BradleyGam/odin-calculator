@@ -10,7 +10,8 @@ const deleteButton = document.querySelector("#delete");
 const inverseButton = document.querySelector("#inverse");
 const decimalButton = document.querySelector("#decimal");
 
-let operator = undefined;
+let operator;
+let isFirstFocus = true;
 
 /* Add event listeners to each button */
 numericButtons.forEach((button, index) => {
@@ -33,20 +34,32 @@ clearButton.addEventListener("click", () => {
 });
 
 
-
+deleteButton.addEventListener("click", () => {
+    if (isFirstFocus) {
+        if (firstNumber.textContent.length === 1) {
+            firstNumber.textContent = "0";
+            return;
+        }
+        firstNumber.textContent = firstNumber.textContent.slice(0, -1);
+    } else {
+        if (secondNumber.textContent.length === 1) {
+            secondNumber.textContent = "0";
+            return;
+        }
+        secondNumber.textContent = secondNumber.textContent.slice(0, -1);
+    }
+});
 
 
 /* Functions for updating UI and performing calculation */
 function updateDisplay(number) {
-    if (operator === undefined) {
-        // If no operator is set, update the first number in the display
+    if (isFirstFocus) {
         if (firstNumber.textContent === "0") {
             firstNumber.textContent = number;
         } else {
             firstNumber.textContent += number;
         }
     } else {
-        // If an operator is set, update the second number in the display
         if (secondNumber.textContent === "0") {
             secondNumber.textContent = number;
         } else {
@@ -62,6 +75,7 @@ function setOperation() {
     }
     operationText.textContent = this.textContent;
     operator = this.id;
+    isFirstFocus = false;
 }
 
 
@@ -87,6 +101,7 @@ function resetUI() {
     operator = undefined;
     secondNumber.textContent = "";
     operationText.textContent = "";
+    isFirstFocus = true;
 }
 
 
