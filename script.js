@@ -5,10 +5,12 @@ const operationText = document.querySelector(".operator");
 const numericButtons = document.querySelectorAll(".number-buttons button");
 const operationButtons = document.querySelectorAll(".operation-buttons button");
 const equalButton = document.querySelector("#equal");
+const clearButton = document.querySelector("#clear");
+const deleteButton = document.querySelector("#delete");
+const inverseButton = document.querySelector("#inverse");
+const decimalButton = document.querySelector("#decimal");
 
 let operator = undefined;
-
-
 
 /* Add event listeners to each button */
 numericButtons.forEach((button, index) => {
@@ -18,8 +20,19 @@ numericButtons.forEach((button, index) => {
     });
 });
 
+
 operationButtons.forEach(button => button.addEventListener("click", setOperation));
+
+
 equalButton.addEventListener("click", () => performOperation(operator));
+
+
+clearButton.addEventListener("click", () => {
+    firstNumber.textContent = "0";
+    resetUI();
+});
+
+
 
 
 
