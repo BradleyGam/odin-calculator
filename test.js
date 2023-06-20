@@ -13,7 +13,6 @@ const decimalButton = document.querySelector("#decimal");
 let operator;
 let isFirstFocus = true;
 
-
 /* Add event listeners to each button */
 numericButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
@@ -36,39 +35,67 @@ clearButton.addEventListener("click", () => {
 
 
 deleteButton.addEventListener("click", () => {
-    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
-    if (currentNumber.textContent.length === 1) {
-        currentNumber.textContent = "0";
-        return;
+    if (isFirstFocus) {
+        if (firstNumber.textContent.length === 1) {
+            firstNumber.textContent = "0";
+            return;
+        }
+        firstNumber.textContent = firstNumber.textContent.slice(0, -1);
+    } else {
+        if (secondNumber.textContent.length === 1) {
+            secondNumber.textContent = "0";
+            return;
+        }
+        secondNumber.textContent = secondNumber.textContent.slice(0, -1);
     }
-    currentNumber.textContent = currentNumber.textContent.slice(0, -1);
 });
 
 
 inverseButton.addEventListener("click", () => {
-    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
-    currentNumber.textContent *= -1;
+    if (isFirstFocus) {  
+        firstNumber.textContent = firstNumber.textContent * -1;
+    } else {
+        secondNumber.textContent = secondNumber.textContent * -1;
+    }
 });
 
 
 decimalButton.addEventListener("click", () => {
-    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
-
-    if (currentNumber.textContent.includes(".")) {
-        return;
+    if (isFirstFocus) {
+        if (firstNumber.textContent.indexOf(".") === firstNumber.textContent.length - 1) {
+            firstNumber.textContent = firstNumber.textContent.slice(0, -1);
+            return;
+        } else if (firstNumber.textContent.includes(".")) {
+            return;
+        }
+        firstNumber.textContent += ".";
+    } else {
+        if (secondNumber.textContent.indexOf(".") === secondNumber.textContent.length - 1) {
+            secondNumber.textContent = secondNumber.textContent.slice(0, -1);
+            return;
+        } else if (secondNumber.textContent.includes(".")) {
+            return;
+        }
+        secondNumber.textContent += ".";
     }
-    currentNumber.textContent += ".";
 });
 
 
 
 /* Functions for updating UI and performing calculation */
 function updateDisplay(number) {
-    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
-    if (currentNumber.textContent === "0") {
-        currentNumber.textContent = number;
+    if (isFirstFocus) {
+        if (firstNumber.textContent === "0") {
+            firstNumber.textContent = number;
+        } else {
+            firstNumber.textContent += number;
+        }
     } else {
-        currentNumber.textContent += number;
+        if (secondNumber.textContent === "0") {
+            secondNumber.textContent = number;
+        } else {
+            secondNumber.textContent += number;
+        }
     }
 }
 
@@ -86,8 +113,8 @@ function setOperation() {
 
 function performOperation(operator) {
     operator = operator || "add";
-    const a = parseFloat(firstNumber.textContent) || 0;
-    const b = parseFloat(secondNumber.textContent) || 0;
+    const a = parseFloat(firstNumberElement.textContent) || 0;
+    const b = parseFloat(secondNumberElement.textContent) || 0;
     const result = operationMap[operator](a, b);
 
     firstNumber.textContent = result.toString();
