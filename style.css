@@ -17,8 +17,16 @@
 }
 
 html {
+    position: relative;
     background-color: var(--background);
     min-height: 100%;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
 }
 
 .screen-border {
@@ -59,9 +67,8 @@ html {
 }
 
 .calculator {
-    max-width: 500px;
+    width: 380px;
     height: auto;
-    margin: 40px auto;
     padding: 40px;
     border-radius: 20px;
     display: flex;
@@ -82,3 +89,17 @@ html {
     grid-column: 1 / span 4;
     grid-row: 6;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
