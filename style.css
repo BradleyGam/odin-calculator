@@ -32,7 +32,7 @@ main {
 .screen-border {
     background-color: var(--screen-border);
     width: 300px;
-    height: 100px;
+    height: auto;
     display: flex;
     align-items: flex-end;
     padding: 20px;
