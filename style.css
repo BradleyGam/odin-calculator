@@ -11,28 +11,58 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 html {
     background-color: var(--background);
     min-height: 100%;
-    font-family: "LCDMono2", 'Courier New', Courier, monospace;
-    
 }
 
-button {
-    font-family: "Comfortaa", 'Courier New', Courier, monospace;
-    background-color: #f0f0f0;
-    padding: 10px;
+.screen-border {
+    background-color: var(--screen-border);
+    width: 300px;
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    border-radius: 10px;
 }
+
+.screen {
+    font-family: "LCDMono2", 'Courier New', Courier, monospace;
+    font-size: 26px;
+    font-weight: 900;
+    background-color: var(--screen);
+    border-radius: 5px;
+    flex: 1;
+    text-align: right;
+    padding: 15px;
+}
+
+.buttons-grid button {
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: "Comfortaa", 'Courier New', Courier, monospace;
+    padding: 10px 15px;
+    color: var(--calculator);
+    background-color: var(--button-alt);
+}
+
+.buttons-grid .numberButton,
+    #decimal,
+    #inverse {
+    background-color: var(--button);
+}
+
 .calculator {
-    max-width: 800px;
+    max-width: 500px;
     height: auto;
     margin: 40px auto;
-    padding: 20px;
+    padding: 40px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -40,14 +70,15 @@ button {
     background-color: var(--calculator);
 }
 
-  .buttons-grid {
+.buttons-grid {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-gap: 10px;
-}
+    grid-gap: 15px 25px;
+    }
 
 .full-width {
     grid-column: 1 / span 4;
     grid-row: 6;
-  }
+}
