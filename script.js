@@ -2,7 +2,7 @@
 const firstNumber = document.querySelector(".first-number");
 const secondNumber = document.querySelector(".second-number");
 const operationText = document.querySelector(".operator");
-const numericButtons = document.querySelectorAll(".number-buttons button");
+const numericButtons = document.querySelectorAll(".number");
 const operationButtons = document.querySelectorAll(".operation-buttons button");
 const equalButton = document.querySelector("#equal");
 const clearButton = document.querySelector("#clear");
@@ -15,9 +15,9 @@ let isFirstFocus = true;
 
 
 /* Add event listeners to each button */
-numericButtons.forEach((button, index) => {
+numericButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        const number = index.toString();
+        const number = button.textContent;
         updateDisplay(number);
     });
 });
