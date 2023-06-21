@@ -19,10 +19,15 @@
 html {
     background-color: var(--background);
     min-height: 100%;
-    font-family: "LCDMono2", 'Courier New', Courier, monospace; /* LCD Text */
-    font-family: "Comfortaa", 'Courier New', Courier, monospace; /* Button Text */
+    font-family: "LCDMono2", 'Courier New', Courier, monospace;
+    
 }
 
+button {
+    font-family: "Comfortaa", 'Courier New', Courier, monospace;
+    background-color: #f0f0f0;
+    padding: 10px;
+}
 .calculator {
     max-width: 800px;
     height: auto;
@@ -33,4 +38,16 @@ html {
     flex-direction: column;
     align-items: center;
     background-color: var(--calculator);
+}
+
+  .buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 10px;
+}
+
+.full-width {
+    grid-column: 1 / span 4;
+    grid-row: 6;
   }
