@@ -50,6 +50,16 @@ main {
     padding: 15px;
 }
 
+button:hover {
+    filter: brightness(85%);
+    transition: filter 0.3s ease;
+}
+
+button:active {
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+  
 .buttons-grid button {
     border: none;
     border-radius: 5px;
