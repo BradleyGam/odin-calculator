@@ -36,30 +36,19 @@ equalButton.addEventListener("click", () => {
 
 clearButton.addEventListener("click", () => {
     firstNumber.textContent = "0";
-    resetUI();
+    resetCalculatorState();
 });
 
 deleteButton.addEventListener("click", () => {
-    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
-    if (currentNumber.textContent.length === 1) {
-        currentNumber.textContent = "0";
-        return;
-    }
-    currentNumber.textContent = currentNumber.textContent.slice(0, -1);
+    deleteLastDigit();
 });
 
 inverseButton.addEventListener("click", () => {
-    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
-    currentNumber.textContent *= -1;
+    toggleInverse();
 });
 
 decimalButton.addEventListener("click", () => {
-    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
-
-    if (currentNumber.textContent.includes(".")) {
-        return;
-    }
-    currentNumber.textContent += ".";
+    addDecimal();
 });
 
 // Functions for event handling
@@ -70,21 +59,21 @@ function handleKeyDown(event) {
     );
     const operationButton = Array.from(operationButtons).find(
         (button) => button.textContent === key
-    );
-    const isEnterKey = key === "Enter";
+    )
+    const isEnterKey = key === "Enter" || "=";
     const isEscapeKey = key === "Escape"
     const isDeleteKey = key === "Backspace";
     const isDecimalKey = key === "."
 
     if (numericButton) {
-        const number = numericButton.textContent;
-        updateDisplay(number);
+        numericButton.click();
     } else if (operationButton) {
-        button.addEventListener("click", setOperation);
+        operationButton.click();
     } else if (isEnterKey) {
         performOperation(operator);
     } else if (isEscapeKey) {
-        resetUI();
+        firstNumber.textContent = "0";
+        resetCalculatorState();
     } else if (isDeleteKey) {
         deleteLastDigit();
     } else if (isDecimalKey) {
@@ -101,7 +90,6 @@ function updateDisplay(number) {
     }
 }
 
-
 function setOperation() {
     if (secondNumber.textContent !== "") {
         performOperation(operator);
@@ -112,7 +100,6 @@ function setOperation() {
     isFirstFocus = false;
 }
 
-
 function performOperation(operator) {
     operator = operator || "add";
     const a = parseFloat(firstNumber.textContent) || 0;
@@ -120,17 +107,38 @@ function performOperation(operator) {
     const result = operationMap[operator](a, b);
 
     firstNumber.textContent = result.toString();
-    resetUI();
+    resetCalculatorState();
 }
 
-
-function resetUI() {
+function resetCalculatorState() {
     operator = undefined;
     secondNumber.textContent = "";
     operationText.textContent = "";
     isFirstFocus = true;
 }
 
+function deleteLastDigit() {
+    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
+    if (currentNumber.textContent.length === 1) {
+        currentNumber.textContent = "0";
+        return;
+    }
+    currentNumber.textContent = currentNumber.textContent.slice(0, -1);
+}
+
+function toggleInverse() {
+    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
+    currentNumber.textContent *= -1;
+}
+
+function addDecimal() {
+    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
+
+    if (currentNumber.textContent.includes(".")) {
+        return;
+    }
+    currentNumber.textContent += ".";
+}
 
 /* Object containing all operation functions */
 const operationMap = {
