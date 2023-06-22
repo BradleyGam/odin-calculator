@@ -16,7 +16,6 @@ let isFirstFocus = true;
 
 // Event listeners
 document.addEventListener("keydown", handleKeyDown);
-document.addEventListener("keydown", events => console.log(events.key));
 
 numericButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -107,7 +106,7 @@ function performOperation(operator) {
     operator = operator || "add";
     const a = parseFloat(firstNumber.textContent) || 0;
     const b = parseFloat(secondNumber.textContent) || 0;
-    const result = operationMap[operator](a, b);
+    const result = operationMap[operator](a, b).toFixed(5);
 
     firstNumber.textContent = result.toString();
     resetCalculatorState();
