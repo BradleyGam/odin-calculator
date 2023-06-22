@@ -1,4 +1,4 @@
-/* Initialize variables that store reference to elements in index.html */
+// Initialize variables that store reference to elements in index.html
 const firstNumber = document.querySelector(".first-number");
 const secondNumber = document.querySelector(".second-number");
 const operationText = document.querySelector(".operator");
@@ -14,30 +14,10 @@ let operator;
 let isFirstFocus = true;
 
 
+// Event listeners
+document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keydown", events => console.log(events.key));
 
-document.addEventListener("keydown", (event) => {
-  const key = event.key;
-  const numericButton = Array.from(numericButtons).find(
-    (button) => button.textContent === key
-  );
-  const isDeleteKey = key === "Backspace";
-  const isEnterKey = key === "Enter";
-  if (numericButton) {
-    const number = numericButton.textContent;
-    updateDisplay(number);
-  } else if (isDeleteKey) {
-    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
-    if (currentNumber.textContent.length === 1) {
-      currentNumber.textContent = "0";
-      return;
-    }
-    currentNumber.textContent = currentNumber.textContent.slice(0, -1);
-  } else if (isEnterKey) {
-    performOperation(operator);
-  }
-});
-
-/* Add event listeners to each button */
 numericButtons.forEach((button) => {
     button.addEventListener("click", () => {
         const number = button.textContent;
@@ -46,17 +26,18 @@ numericButtons.forEach((button) => {
 });
 
 
-operationButtons.forEach(button => button.addEventListener("click", setOperation));
+operationButtons.forEach((button) => {
+    button.addEventListener("click", setOperation)
+});
 
-
-equalButton.addEventListener("click", () => performOperation(operator));
-
+equalButton.addEventListener("click", () => {
+    performOperation(operator)
+});
 
 clearButton.addEventListener("click", () => {
     firstNumber.textContent = "0";
     resetUI();
 });
-
 
 deleteButton.addEventListener("click", () => {
     const currentNumber = isFirstFocus ? firstNumber : secondNumber;
@@ -67,12 +48,10 @@ deleteButton.addEventListener("click", () => {
     currentNumber.textContent = currentNumber.textContent.slice(0, -1);
 });
 
-
 inverseButton.addEventListener("click", () => {
     const currentNumber = isFirstFocus ? firstNumber : secondNumber;
     currentNumber.textContent *= -1;
 });
-
 
 decimalButton.addEventListener("click", () => {
     const currentNumber = isFirstFocus ? firstNumber : secondNumber;
@@ -83,9 +62,36 @@ decimalButton.addEventListener("click", () => {
     currentNumber.textContent += ".";
 });
 
+// Functions for event handling
+function handleKeyDown(event) {
+    const key = event.key;
+    const numericButton = Array.from(numericButtons).find(
+        (button) => button.textContent === key
+    );
+    const operationButton = Array.from(operationButtons).find(
+        (button) => button.textContent === key
+    );
+    const isEnterKey = key === "Enter";
+    const isEscapeKey = key === "Escape"
+    const isDeleteKey = key === "Backspace";
+    const isDecimalKey = key === "."
 
+    if (numericButton) {
+        const number = numericButton.textContent;
+        updateDisplay(number);
+    } else if (operationButton) {
+        button.addEventListener("click", setOperation);
+    } else if (isEnterKey) {
+        performOperation(operator);
+    } else if (isEscapeKey) {
+        resetUI();
+    } else if (isDeleteKey) {
+        deleteLastDigit();
+    } else if (isDecimalKey) {
+        addDecimal();
+    }
+}
 
-/* Functions for updating UI and performing calculation */
 function updateDisplay(number) {
     const currentNumber = isFirstFocus ? firstNumber : secondNumber;
     if (currentNumber.textContent === "0") {
