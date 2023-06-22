@@ -106,7 +106,10 @@ function performOperation(operator) {
     operator = operator || "add";
     const a = parseFloat(firstNumber.textContent) || 0;
     const b = parseFloat(secondNumber.textContent) || 0;
-    const result = operationMap[operator](a, b).toFixed(5);
+    let result = operationMap[operator](a, b);
+    if (result.toString().split(".")[1]?.length > 5) {
+        result = result.toFixed(5);
+    }
 
     firstNumber.textContent = result.toString();
     resetCalculatorState();
