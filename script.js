@@ -16,6 +16,7 @@ let isFirstFocus = true;
 
 // Event listeners
 document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keydown", events => console.log(events.key));
 
 numericButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -62,7 +63,7 @@ function handleKeyDown(event) {
     const operationButton = Array.from(operationButtons).find(
         (button) => button.textContent === key
     )
-    const isEnterKey = key === "Enter" || "=";
+    const isEnterKey = key === "Enter" || key === "=";
     const isEscapeKey = key === "Escape"
     const isDeleteKey = key === "Backspace";
     const isDecimalKey = key === "."
