@@ -14,6 +14,29 @@ let operator;
 let isFirstFocus = true;
 
 
+
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+  const numericButton = Array.from(numericButtons).find(
+    (button) => button.textContent === key
+  );
+  const isDeleteKey = key === "Backspace";
+  const isEnterKey = key === "Enter";
+  if (numericButton) {
+    const number = numericButton.textContent;
+    updateDisplay(number);
+  } else if (isDeleteKey) {
+    const currentNumber = isFirstFocus ? firstNumber : secondNumber;
+    if (currentNumber.textContent.length === 1) {
+      currentNumber.textContent = "0";
+      return;
+    }
+    currentNumber.textContent = currentNumber.textContent.slice(0, -1);
+  } else if (isEnterKey) {
+    performOperation(operator);
+  }
+});
+
 /* Add event listeners to each button */
 numericButtons.forEach((button) => {
     button.addEventListener("click", () => {
