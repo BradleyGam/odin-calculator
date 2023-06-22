@@ -16,7 +16,6 @@ let isFirstFocus = true;
 
 // Event listeners
 document.addEventListener("keydown", handleKeyDown);
-document.addEventListener("keydown", events => console.log(events.key));
 
 numericButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -24,7 +23,6 @@ numericButtons.forEach((button) => {
         updateDisplay(number);
     });
 });
-
 
 operationButtons.forEach((button) => {
     button.addEventListener("click", setOperation)
@@ -50,6 +48,10 @@ inverseButton.addEventListener("click", () => {
 decimalButton.addEventListener("click", () => {
     addDecimal();
 });
+
+
+
+
 
 // Functions for event handling
 function handleKeyDown(event) {
@@ -139,6 +141,10 @@ function addDecimal() {
     }
     currentNumber.textContent += ".";
 }
+
+
+
+
 
 /* Object containing all operation functions */
 const operationMap = {
